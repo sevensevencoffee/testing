@@ -1,0 +1,167 @@
+
+body {
+    background-color: #38533C;
+    text-align: center;
+    margin: auto;
+}
+
+header {
+    padding: 1% 0% 1% 1%;
+    background-color: #E4D1A7;
+}
+
+.logo {
+    height: auto;
+    max-width: 200px;
+    margin-left: 10px;
+}
+
+nav {
+    min-height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.nav-btn {
+    font-family: 'Inika', serif;
+    background: none;
+    border: none;
+    font-size: 15px;
+    color: #38533C;
+    font-weight: bolder;
+    padding: 5px 10px;
+}
+
+.nav-btn:hover {
+    color: #182019;
+}
+
+.btn-container {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
+}
+
+#content {
+    background-color: #FDF0D3;
+    font-family: 'Inika', serif;
+} 
+
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2% 0;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 800px;
+}
+
+.info {
+    border-top: 2px dotted #38533C;
+    border-bottom: 2px dotted #38533C;
+    margin: 3% auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4%;
+    padding: 20px 0;
+    max-width: 1200px;
+}
+
+.info>* {
+    text-align: center;
+}
+
+.about-sec {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 0;
+    padding: 0 20px;
+}
+
+.about-header {
+    font-size: clamp(20px, 4vw, 30px);
+    width: 100%;
+    max-width: 300px;
+    margin: 19px auto;
+    color: #38533C; 
+    letter-spacing: 0.2em; 
+    text-transform: uppercase; 
+}
+
+.about-main-h {
+    font-size: clamp(30px, 5vw, 60px);
+    text-align: center; 
+    color: #38533C; 
+    margin: 1vh 0; 
+    letter-spacing: 0.1em;
+}
+
+.about-content {
+    width: 100%;
+    max-width: 800px;
+    text-align: left;
+    line-height: 1.6;
+    font-size: clamp(16px, 2vw, 20px);
+    color: #333;
+}
+
+.cafe-menu-container, .wine-menu-container {
+    background-color: #FDF0D3;
+    padding: 20px;
+}
+
+.cafe-menu-img, .wine-menu-img {
+    width: 100%;
+    max-width: 600px;
+    margin: 5% auto;
+    display: block;
+}
+
+.button-reservation {
+    border-radius: 10px;
+    font-family: 'Inika', serif;
+    font-size: clamp(18px, 3vw, 25px);
+    background-color: #a0522d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.button-reservation:hover {
+    background-color: #8b4513;
+}
+
+@media (max-width: 768px) {
+    .btn-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-btn {
+        margin: 5px 0;
+    }
+
+    .about-sec {
+        flex-direction: column;
+    }
+
+    .about-header {
+        margin-bottom: 10px;
+    }
+}

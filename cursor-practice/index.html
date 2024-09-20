@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Interactive To-Do List 🌈✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+        body {
+            font-family: 'Nunito', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fce4ec;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🦄</text></svg>');
+            background-repeat: repeat;
+            animation: backgroundScroll 20s linear infinite;
+        }
+        @keyframes backgroundScroll {
+            from {background-position: 0 0;}
+            to {background-position: 100% 100%;}
+        }
+        h1, h2 {
+            text-align: center;
+            color: #ff4081;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .todo-section, .priority-section {
+            width: 48%;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .todo-section:hover, .priority-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        #todo-form, #priority-form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        input[type="text"], select {
+            flex-grow: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ff80ab;
+            border-radius: 20px;
+            background-color: #fff0f5;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #f50057;
+            transform: scale(1.05);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #fff0f5;
+            margin-bottom: 10px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        li:hover {
+            transform: translateX(5px);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .delete-btn {
+            background-color: #ff80ab;
+        }
+        .delete-btn:hover {
+            background-color: #f50057;
+        }
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌟 Cute To-Do List 🌟</h1>
+    <div class="container">
+        <div class="todo-section">
+            <h2>🎀 All Tasks 🎀</h2>
+            <form id="todo-form">
+                <input type="text" id="todo-input" placeholder="Enter a new task" required>
+                <select id="todo-priority">
+                    <option value="low">🌱 Low</option>
+                    <option value="medium">🌼 Medium</option>
+                    <option value="high">🌺 High</option>
+                </select>
+                <button type="submit">✨ Add Task</button>
+            </form>
+            <ul id="todo-list"></ul>
+        </div>
+        <div class="priority-section">
+            <h2>🚀 High Priority Tasks 🚀</h2>
+            <ul id="priority-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('todo-form');
+        const input = document.getElementById('todo-input');
+        const prioritySelect = document.getElementById('todo-priority');
+        const todoList = document.getElementById('todo-list');
+        const priorityList = document.getElementById('priority-list');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            addTask(input.value, prioritySelect.value);
+            input.value = '';
+        });
+
+        function addTask(task, priority) {
+            const li = document.createElement('li');
+            const emoji = getEmoji(priority);
+            li.innerHTML = `
+                <span class="emoji">${emoji}</span> ${task} (${priority})
+                <button class="delete-btn" onclick="deleteTask(this)">🗑️ Delete</button>
+            `;
+            li.style.animation = 'fadeIn 0.5s';
+            todoList.appendChild(li);
+
+            if (priority === 'high') {
+                const priorityLi = li.cloneNode(true);
+                priorityList.appendChild(priorityLi);
+            }
+        }
+
+        function deleteTask(btn) {
+            const task = btn.parentNode;
+            task.style.animation = 'fadeOut 0.5s';
+            setTimeout(() => {
+                task.remove();
+                const taskText = task.textContent.trim().split('(')[0].trim();
+                const priorityTask = Array.from(priorityList.children).find(li => li.textContent.includes(taskText));
+                if (priorityTask) {
+                    priorityTask.remove();
+                }
+            }, 500);
+        }
+
+        function getEmoji(priority) {
+            switch(priority) {
+                case 'low': return '🌱';
+                case 'medium': return '🌼';
+                case 'high': return '🌺';
+                default: return '✨';
+            }
+        }
+
+        // Add some CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
